@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Hệ Thống Giám Sát Xả Rác</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container animate__animated animate__fadeIn">
+        <h1>Hệ Thống Giám Sát Xả Rác</h1>
+        <div class="auth-buttons">
+            <button onclick="showLoginForm()" class="btn-submit">Đăng nhập</button>
+            <button onclick="showRegisterForm()" class="btn-submit">Đăng ký</button>
+        </div>
+
+        <!-- Modal Đăng nhập -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content animate__animated animate__fadeInUp">
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+                <h2>Đăng nhập</h2>
+                <form method="POST" action="{{ url_for('login') }}" class="form-group">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="form-group">
+                        <label>Username:</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Đăng nhập</button>
+                </form>
+                <p>Chưa có tài khoản? <a href="#" class="view-details" onclick="switchToRegister()">Đăng ký</a></p>
+            </div>
+        </div>
+
+        <!-- Modal Đăng ký -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content animate__animated animate__fadeInUp">
+                <span class="close" onclick="closeRegisterModal()">&times;</span>
+                <h2>Đăng ký</h2>
+                <form method="POST" action="{{ url_for('register') }}" class="form-group">
+                    <div class="form-group">
+                        <label>Username:</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Đăng ký</button>
+                </form>
+                <p>Đã có tài khoản? <a href="#" class="view-details" onclick="switchToLogin()">Đăng nhập</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLoginForm() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('registerModal').style.display = 'block';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('registerModal').style.display = 'none';
+        }
+
+        function switchToRegister() {
+            closeLoginModal();
+            showRegisterForm();
+        }
+
+        function switchToLogin() {
+            closeRegisterModal();
+            showLoginForm();
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

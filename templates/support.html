@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hỗ Trợ - Hệ Thống Giám Sát</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Trang Chính</a></li>
+            <li><a href="{{ url_for('violations_page') }}">Vi Phạm</a></li>
+            <li><a href="{{ url_for('notifications') }}">Thông Báo</a></li>
+            <li><a href="{{ url_for('support') }}" class="active">Hỗ Trợ</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}">Đăng xuất ({{ current_user.username }})</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container animate__animated animate__fadeIn">
+        <h1>Hỗ trợ và Liên hệ</h1>
+
+        <div class="section contact-info">
+            <h2>Thông Tin Liên Hệ</h2>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p><strong>Địa Chỉ:</strong> 123 Đường ABC, Phường XYZ, Quận 1, TP. HCM</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p><strong>Điện Thoại:</strong> +84 123 456 789</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><strong>Email:</strong> support@yourdomain.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <p><strong>Giờ Làm Việc:</strong> Thứ Hai - Thứ Sáu: 8:00 - 18:00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section contact-form-section">
+            <h2>Gửi Tin Nhắn Cho Chúng Tôi</h2>
+            <form class="form-group">
+                <div class="form-group">
+                    <label>Họ và Tên</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Chủ Đề</label>
+                    <input type="text" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label>Nội Dung</label>
+                    <textarea name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Gửi Tin Nhắn</button>
+            </form>
+        </div>
+
+        <div class="section social-media">
+            <h2>Kết Nối Với Chúng Tôi</h2>
+            <div class="social-icons">
+                <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-content">
+        <p>© 2024 Hệ Thống Giám Sát Rác Thải. Bảo lưu mọi quyền.</p>
+    </footer>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
+</html>

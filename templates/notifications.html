@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Báo - Hệ Thống Giám Sát</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Trang Chính</a></li>
+            <li><a href="{{ url_for('violations_page') }}">Vi Phạm</a></li>
+            <li><a href="{{ url_for('notifications') }}" class="active">Thông Báo</a></li>
+            <li><a href="{{ url_for('support') }}">Hỗ Trợ</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}">Đăng xuất ({{ current_user.username }})</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container animate__animated animate__fadeIn">
+        <h1>Thông Báo</h1>
+
+        <div class="section notification-settings">
+            <h2>Cài Đặt Thông Báo</h2>
+            <form class="form-group">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="email_notifications">
+                        Nhận thông báo qua Email
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="sms_notifications">
+                        Nhận thông báo qua SMS
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="push_notifications">
+                        Nhận thông báo Push
+                    </label>
+                </div>
+                <button type="submit" class="btn-submit">Lưu Thay Đổi</button>
+            </form>
+            <div id="notification-message"></div>
+        </div>
+
+        <div class="section current-settings">
+            <h2>Cài Đặt Hiện Tại</h2>
+            <div class="settings-details">
+                <p><strong>Email:</strong> <span id="current-email-status">Đang tắt</span></p>
+                <p><strong>SMS:</strong> <span id="current-sms-status">Đang tắt</span></p>
+                <p><strong>Push Notifications:</strong> <span id="current-push-status">Đang tắt</span></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-content">
+        <p>© 2024 Hệ Thống Giám Sát Rác Thải. Bảo lưu mọi quyền.</p>
+    </footer>
+</body>
+</html>

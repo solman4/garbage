@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Giám Sát Rác Thải Thông Minh</title>
+
+    <!-- Load Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Load Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../static/styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="enhanced-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Hệ Thống">
+            </div>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="active">Trang Chính</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('violations_page') }}">Xem Vi phạm</a></li>
+                    <li><a href="{{ url_for('notifications') }}">Thông Báo</a></li>
+                    <li><a href="{{ url_for('support') }}">Hỗ trợ</a></li>
+                    <li><a href="{{ url_for('logout') }}">Đăng xuất ({{ current_user.username }})</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Đăng nhập</a></li>
+                    <li><a href="{{ url_for('register') }}">Đăng ký</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="dashboard-container animate__animated animate__fadeIn">
+        <section class="hero-section">
+            <h1>Hệ Thống Giám Sát Xả Rác </h1>
+            <p class="subtitle">Giải pháp công nghệ quản lý môi trường hiện đại</p>
+        </section>
+
+        <div class="dashboard-grid">
+            <div class="video-panel animate__animated animate__slideInLeft">
+                <div class="panel-header">
+                    <h2>Camera Giám Sát Trực Tiếp</h2>
+                </div>
+                <div class="video-container">
+                    <img id="video" src="{{ url_for('video_feed') }}" alt="Luồng Video Trực Tiếp">
+                </div>
+            </div>
+
+            <div class="stats-panel animate__animated animate__slideInRight">
+                <div class="panel-header">
+                    <h2>Thống Kê Tổng Quan</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Vi Phạm Gần Đây</span>
+                        <span id="violation-count" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tổng Số Sự Cố</span>
+                        <span id="total-incidents" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="logs-section" class="logs-panel animate__animated animate__fadeInUp">
+            <div class="panel-header">
+                <h2>Nhật Ký Hoạt Động</h2>
+            </div>
+            <div id="logs" class="logs-container">
+                <!-- Logs sẽ được động hóa bằng JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Hệ Thống Giám Sát Rác Thải. Bảo lưu mọi quyền.</p>
+        </div>
+    </footer>
+
+    <!-- Thư viện Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

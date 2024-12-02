@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vi Phạm - Hệ Thống Giám Sát</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Trang Chính</a></li>
+            <li><a href="{{ url_for('violations_page') }}" class="active">Vi Phạm</a></li>
+            <li><a href="{{ url_for('notifications') }}">Thông Báo</a></li>
+            <li><a href="{{ url_for('support') }}">Hỗ Trợ</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}">Đăng xuất ({{ current_user.username }})</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="dashboard-container animate__animated animate__fadeIn">
+        <div class="section violations-header">
+            <h1>Báo Cáo Vi Phạm Môi Trường</h1>
+            <p>Theo dõi và phân tích các sự cố rác thải</p>
+        </div>
+
+        <div class="violations-dashboard">
+            <div class="violations-statistics">
+                <div class="stat-card">
+                    <h3>Tổng Số Vi Phạm</h3>
+                    <div id="total-violations" class="stat-value">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Vi Phạm Hôm Nay</h3>
+                    <div id="daily-violations" class="stat-value">0</div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-container">
+                    <h2>Biểu Đồ Vi Phạm Hàng Ngày</h2>
+                    <!-- Chart sẽ được render bởi JavaScript -->
+                </div>
+            </div>
+
+            <div class="section violations-list-section">
+                <h2>Chi Tiết Vi Phạm Gần Đây</h2>
+                <div id="violations-list" class="violations-grid">
+                    <!-- Vi phạm sẽ được thêm vào đây bởi JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="personDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Thông Tin Chi Tiết</h2>
+            <div id="personDetails"></div>
+        </div>
+    </div>
+
+    <footer class="footer-content">
+        <p>© 2024 Hệ Thống Giám Sát Rác Thải. Bảo lưu mọi quyền.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
